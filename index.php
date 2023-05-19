@@ -55,55 +55,105 @@
 </head>
 <body>
     
-    <h1>Bella zio</h1>
+    <div class="container">
+        <div class="row text-center text-primary">
+            <h1 class="color-blue">Booking</h1>
+        </div>
+    </div>
 
-    <ul>
-        <?php
+    <div class="container pt-4">    
+        <div class="row">
+            <div class="col-2">
 
-            foreach($hotels as $elem) {
+                <!-- form filter -->
+                <form action="index.php" method="GET">
+                
+                    <!-- parking -->
+                    <div class="mb-3">
 
-                if ($elem['parking'] == true) {
+                        <h5 class="fw-bold">Parking</h5>
+                        <div>
+                            <input type="radio" id="yesPark" name="park" value="yesPark">
+                            <label for="yesPark">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="noPark" name="park" value="noPark">
+                            <label for="noPark">No</label>
+                        </div>
+                    </div>
 
-                    echo 
-                    '<div class="card" style="width: 18rem;">
-                        <div class="card-body"> <h5 class="card-title">'. $elem['name'] .'</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Distance to center: '. $elem['distance_to_center'] .
-                            '</h6>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Vote: '. $elem['vote'] .
-                            '</h6>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Parking: Yes
-                            </h6>
-                            <p class="card-text">'. $elem['description'] .'</p>
-                        </div> 
-                    </div>';
-                    
-                } else {
+                    <!-- vote -->
+                    <div class="mb-3">
 
-                    echo 
-                    '<div class="card" style="width: 18rem;">
-                        <div class="card-body"> <h5 class="card-title">'. $elem['name'] .'</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Distance to center: '. $elem['distance_to_center'] .
-                            '</h6>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Vote: '. $elem['vote'] .
-                            '</h6>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">
-                                Parking: No
-                            </h6>
-                            <p class="card-text">'. $elem['description'] .'</p>
-                        </div> 
-                    </div>';
-                }
+                        <h5 class="fw-bold">Vote</h5>
+                        <div>
+                            <input type="radio" id="over4" name="vote" value="over4">
+                            <label for="over4">4 e più</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="over3" name="vote" value="over3">
+                            <label for="over3">3 e più</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="over2" name="vote" value="over2">
+                            <label for="over2">2 e più</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="over1" name="vote" value="over1">
+                            <label for="over1">1 e più</label>
+                        </div>
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary">Filtra</button>
+                </form>
+            </div>
 
-            }
-        ?>
-    </ul>
+            <div class="col-10 d-flex flex-wrap gap-4">
+                <?php
 
-    
+                    foreach($hotels as $elem) {
+
+                        if ($elem['parking'] == true) {
+
+                            echo 
+                            '<div class="card" style="width: 18rem;">
+                                <div class="card-body"> <h5 class="card-title">'. $elem['name'] .'</h5>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Distance to center: '. $elem['distance_to_center'] .
+                                    'km</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Vote: '. $elem['vote'] .
+                                    '</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Parking: Yes
+                                    </h6>
+                                    <p class="card-text">'. $elem['description'] .'</p>
+                                </div> 
+                            </div>';
+                            
+                        } else {
+
+                            echo 
+                            '<div class="card" style="width: 18rem;">
+                                <div class="card-body"> <h5 class="card-title">'. $elem['name'] .'</h5>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Distance to center: '. $elem['distance_to_center'] .
+                                    'km</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Vote: '. $elem['vote'] .
+                                    '</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        Parking: No
+                                    </h6>
+                                    <p class="card-text">'. $elem['description'] .'</p>
+                                </div> 
+                            </div>';
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
