@@ -39,12 +39,19 @@
         ],
     ];
 
-    $park = $_GET['park'];
+    if ( $_GET['park'] == 'yes') {
+        $park = true;
+    } else if ($_GET['park'] == 'no') {
+        $park = false;
+    } else {
+        $park = null;
+    }
 
-    $vote = $_GET['vote'];
+    $vote = intval($_GET['vote']);
 
+    var_dump($_GET['park'] );
     var_dump($park);
-    var_dump($vote);
+    var_dump(intval($_GET['vote']));
 
 ?>
 
@@ -82,11 +89,11 @@
 
                         <h5 class="fw-bold">Parking</h5>
                         <div>
-                            <input type="radio" id="yesPark" name="park" value="true">
+                            <input type="radio" id="yesPark" name="park" value="yes">
                             <label for="yesPark">Yes</label>
                         </div>
                         <div>
-                            <input type="radio" id="noPark" name="park" value="false">
+                            <input type="radio" id="noPark" name="park" value="no">
                             <label for="noPark">No</label>
                         </div>
                     </div>
@@ -96,19 +103,19 @@
 
                         <h5 class="fw-bold">Vote</h5>
                         <div>
-                            <input type="radio" id="over4" name="vote" value="over4">
+                            <input type="radio" id="over4" name="vote" value="4">
                             <label for="over4">4 e più</label>
                         </div>
                         <div>
-                            <input type="radio" id="over3" name="vote" value="over3">
+                            <input type="radio" id="over3" name="vote" value="3">
                             <label for="over3">3 e più</label>
                         </div>
                         <div>
-                            <input type="radio" id="over2" name="vote" value="over2">
+                            <input type="radio" id="over2" name="vote" value="2">
                             <label for="over2">2 e più</label>
                         </div>
                         <div>
-                            <input type="radio" id="over1" name="vote" value="over1">
+                            <input type="radio" id="over1" name="vote" value="1">
                             <label for="over1">1 e più</label>
                         </div>
                     </div>
@@ -121,15 +128,19 @@
             <div class="col-10 d-flex flex-wrap gap-4">
                 <?php
 
-                    if ($park != null || $vote != null) {
+                    // se entrambi i filtri sono diversi da null o da 0
+                    if ($park !== null && $vote !== 0) {
 
-
+                        // creo il ciclo per selezionare ogni elemento di $hotels
                         foreach($hotels as $elem) {
-    
-                            if ($park = $elem['parking']) {
+                            
+                            // se parking è uguale al valore di $park e vote è >= del valore di $vote
+                            if ( $elem['parking'] == $park && $elem['vote'] >= $vote ) {
+
                                 echo 
                                 '<div class="card" style="width: 18rem;">
-                                    <div class="card-body"> <h5 class="card-title">'. $elem['name'] .'</h5>
+                                    <div class="card-body">
+                                        <h5 class="card-title">'. $elem['name'] .'</h5>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">
                                             Distance to center: '. $elem['distance_to_center'] .
                                         'km</h6>
@@ -137,18 +148,21 @@
                                             Vote: '. $elem['vote'] .
                                         '</h6>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">
-                                            Parking: Yes
-                                        </h6>
+                                            Parking: ' . $_GET['park'] .
+                                        '</h6>
                                         <p class="card-text">'. $elem['description'] .'</p>
                                     </div> 
                                 </div>';
                             }
                         }
+                       
+
                     } else {
 
-
+                        // se nessun filtro è stato selezionato mi resetta tutto
                         foreach($hotels as $elem) {
     
+                            // Se il parcheggio c'è
                             if ($elem['parking'] == true) {
     
                                 echo 
@@ -167,6 +181,7 @@
                                     </div> 
                                 </div>';
                                 
+                                // Se il parcheggio non c'è
                             } else {
     
                                 echo 
